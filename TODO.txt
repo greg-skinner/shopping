@@ -1,0 +1,28 @@
+(A) @View items on a shopping list
+Item data structure @View (include price)
+List data structure @View
+Display component @View
+Page layout @View
+(A) @Add items to a shopping list
+Add data controller @Add (will also cover @Persist )
+Edit component @Add
+(A) @Remove items from the shopping list
+Toggle page mode @Remove - display just current list in one, all available in other
+Data storage @Remove
+Update edit component @Remove
+(A) Mark @bought items off the list
+Update display component @bought
+(A) @Persist data between sessions
+(B) @Reorder items in the shopping list
+Add drag and drop (react-select?) @Reorder
+(C) @Total up prices in the list
+Add total to list data object @Total
+Add to page display @Total
+(C) @Alert if I go over the spending limit
+Add data storage for spending limit @Alert
+Spending limit component @Alert
+Update page display if above spending total @Alert
+(D) @Share list by email
+Add simple render of list data structure to text @Share
+(D) @Login with username/password
+Import GDrive saving code? @Login
