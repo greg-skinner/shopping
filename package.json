@@ -5,7 +5,8 @@
   "main": "www/index.html",
   "scripts": {
     "build": "vite build",
-    "test:jest": "jest .*\\test\\..*",
+    "test": "jest --coverage",
+    "test:dev": "jest --watch",
     "test:storybook": "npx test-storybook",
     "test:storybook:ci": "concurrently -k \"npm:storybook\" \"wait-on tcp:6006 && npx test-storybook\"",
     "start": "vite dev",

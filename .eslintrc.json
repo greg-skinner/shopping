@@ -54,6 +54,8 @@
       { "exceptAfterSingleLine": true }
     ],
     "newline-before-return": "error",
+    "no-empty-function": ["error", { "allow": ["constructor"] }],
+    "no-underscore-dangle": ["error", { "allowAfterThis": true }],
     "no-restricted-syntax": [
       "error",
       "ForInStatement",
@@ -94,6 +96,8 @@
         }
       }
     ],
+    "no-useless-constructor": "off",
+    "@typescript-eslint/no-useless-constructor": "error",
     "eslint-comments/no-use": "warn",
     "eslint-comments/require-description": "error"
   },

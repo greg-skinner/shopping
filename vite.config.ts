@@ -33,6 +33,10 @@ export default ({ mode }) => {
           find: '@pages',
           replacement: path.resolve(__dirname, 'src/pages'),
         },
+        {
+          find: '@model',
+          replacement: path.resolve(__dirname, 'src/model'),
+        },
       ],
     },
     server: {

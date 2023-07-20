@@ -12,6 +12,7 @@
     "baseUrl": ".",
     "paths": {
       "@components/*": ["src/components/*"],
+      "@model/*": ["src/model/*"],
       "@pages/*": ["src/pages/*"]
     },
     "types": ["vite/client"],
