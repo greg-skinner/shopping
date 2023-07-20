@@ -1,6 +1,6 @@
 (A) @View items on a shopping list
-Item data structure @View (include price)
-List data structure @View
+x Item data structure @View (include price)
+x List data structure @View
 Display component @View
 Page layout @View
 (A) @Add items to a shopping list
