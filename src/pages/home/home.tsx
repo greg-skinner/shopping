@@ -9,6 +9,6 @@ export interface IHomeProps {}
 export const Home: React.FC<IHomeProps> = () => (
   <div className={styles.content}>
     <p>Hello world</p>
-    <Button onClick={() => alert(1)}>Useless button</Button>
+    <Button onClick={() => alert(0)}>Useless button</Button>
   </div>
 );

@@ -5,6 +5,7 @@ import path from 'path';
 export default ({ mode }) => {
   const isDevelopment = mode === 'development';
   return defineConfig({
+    base: '/shopping/',
     root: 'src',
     mode,
     plugins: [
