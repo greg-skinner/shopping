@@ -1,6 +1,7 @@
 import React from 'react';
 
 import styles from './button.module.scss';
+import classnames from 'classnames';
 
 export interface IButtonProps {
   color?: string;
@@ -10,14 +11,15 @@ export interface IButtonProps {
 }
 
 export const Button: React.FC<React.PropsWithChildren<IButtonProps>> = ({
-  onClick,
+  className,
   color,
-  children,
   disabled = false,
+  onClick,
+  children,
   ...rest
 }) => (
   <button
-    className={styles.button}
+    className={classnames(styles.button, className)}
     style={{ '--color': color } as React.CSSProperties}
     data-disabled={disabled}
     onClick={() => !disabled && onClick()}

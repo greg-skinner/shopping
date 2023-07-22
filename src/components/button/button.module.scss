@@ -4,10 +4,9 @@
 .button {
   background: variables.$neutral-darker;
   background: var(--color);
-  @include mixins.border(variables.$pin-highlight);
+  @include mixins.pinline;
 
   &[data-disabled='true'] {
     background: variables.$neutral-darker;
-    @include mixins.border(variables.$pin-line);
   }
 }

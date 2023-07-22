@@ -1,0 +1,32 @@
+@use '../../styles/mixins.scss';
+@use '../../styles/variables.scss';
+
+.content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background: variables.$neutral-background;
+  padding: variables.$simple-margin;
+  border-radius: variables.$ui-border;
+  max-width: 400px;
+
+  .count {
+    background: variables.$neutral-light;
+    width: 1.5rem;
+    border-radius: variables.$ui-border;
+    margin-right: variables.$simple-margin;
+    text-align: center;
+    font-size: 1.5rem;
+  }
+
+  .item {
+    font-size: 1.5rem;
+  }
+
+  .button {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: variables.$ui-border;
+    margin-left: variables.$simple-margin;
+  }
+}
