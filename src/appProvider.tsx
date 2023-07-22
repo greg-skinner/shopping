@@ -1,43 +1,79 @@
+import { Groceries } from '@model/groceries';
 import { ShoppingList } from '@model/list';
 import { ListItem, ShoppingItem } from '@model/shoppingItem';
 import * as React from 'react';
 
 export interface AppState {
-  list: ListItem[];
-  add: (item: ShoppingItem) => void;
-  remove: (item: ShoppingItem) => void;
+  groceries: {
+    groceryList: ShoppingItem[];
+    addGrocery: (name: string) => void;
+    updateGrocery: (
+      oldName: string,
+      newName: string,
+      newPrice?: number
+    ) => void;
+  };
+  list: {
+    shoppingList: ListItem[];
+    addShopping: (item: ShoppingItem) => void;
+    removeShopping: (item: ShoppingItem) => void;
+  };
 }
 
-export const AppContext = React.createContext<AppState>({
-  list: [],
-  add: (item: ShoppingItem) => {},
-  remove: (item: ShoppingItem) => {},
-});
+export const emptyContext = {
+  groceries: {
+    groceryList: [],
+    addGrocery: (name: string) => {},
+    updateGrocery: (oldName: string, newName: string, newPrice?: number) => {},
+  },
+  list: {
+    shoppingList: [],
+    addShopping: (item: ShoppingItem) => {},
+    removeShopping: (item: ShoppingItem) => {},
+  },
+};
+
+export const AppContext = React.createContext<AppState>(emptyContext);
 
 export const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({
   children,
 }) => {
   const [state, setState] = React.useState(false);
-  const [shoppingList] = React.useState(new ShoppingList());
+  const [shoppingStore] = React.useState(new ShoppingList());
+  const [groceryStore] = React.useState(new Groceries());
 
-  const list = React.useMemo(() => shoppingList.list, [state]);
+  const shoppingList = React.useMemo(() => shoppingStore.list, [state]);
+  const groceryList = React.useMemo(() => groceryStore.items, [state]);
 
-  const add = (item: ShoppingItem) => {
-    shoppingList.addItem(item);
+  const addShopping = (item: ShoppingItem) => {
+    shoppingStore.addItem(item);
     setState(!state);
   };
 
-  const remove = (item: ShoppingItem) => {
-    shoppingList.removeItem(item);
+  const removeShopping = (item: ShoppingItem) => {
+    shoppingStore.removeItem(item);
+    setState(!state);
+  };
+
+  const addGrocery = (name: string) => {
+    groceryStore.addItem(name);
+    setState(!state);
+  };
+
+  const updateGrocery = (
+    oldName: string,
+    newName: string,
+    newPrice?: number
+  ) => {
+    groceryStore.updateItem(oldName, newName, newPrice);
     setState(!state);
   };
 
   return (
     <AppContext.Provider
       value={{
-        list,
-        add,
-        remove,
+        groceries: { groceryList, addGrocery, updateGrocery },
+        list: { shoppingList, addShopping, removeShopping },
       }}
     >
       {children}
@@ -46,7 +82,13 @@ export const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({
 };
 
 export const useList = () => {
-  const { list, add, remove } = React.useContext(AppContext);
+  const { list } = React.useContext(AppContext);
 
-  return { list, add, remove };
+  return list;
+};
+
+export const useGroceries = () => {
+  const { groceries } = React.useContext(AppContext);
+
+  return groceries;
 };

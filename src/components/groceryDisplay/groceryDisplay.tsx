@@ -13,10 +13,10 @@ export const GroceryDisplay: React.FC<IGroceryDisplayProps> = ({
   item,
   ...rest
 }) => {
-  const { list, add, remove } = useList();
+  const { shoppingList, addShopping, removeShopping } = useList();
   const inBasket = React.useMemo(() => {
-    return list.find((basket) => basket._name === item._name);
-  }, [list]);
+    return shoppingList.find((basket) => basket._name === item._name);
+  }, [shoppingList]);
 
   return (
     <div className={styles.content} {...rest}>
@@ -31,7 +31,7 @@ export const GroceryDisplay: React.FC<IGroceryDisplayProps> = ({
           data-testid="item-decrement"
           className={styles.button}
           onClick={() => {
-            remove(item);
+            removeShopping(item);
           }}
         >
           -
@@ -40,7 +40,7 @@ export const GroceryDisplay: React.FC<IGroceryDisplayProps> = ({
           data-testid="item-increment"
           className={styles.button}
           onClick={() => {
-            add(item);
+            addShopping(item);
           }}
         >
           +
