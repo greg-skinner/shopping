@@ -4,7 +4,7 @@ x List data structure @View
 x Display component @View
 x Page layout @View
 (A) @Add items to a shopping list
-Add data controller @Add (will also cover @Persist )
+x Add data controller @Add (will also cover @Persist )
 Edit component @Add
 (A) @Remove items from the shopping list
 Toggle page mode @Remove - display just current list in one, all available in other
