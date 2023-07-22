@@ -9,12 +9,23 @@ export class ShoppingList {
   constructor() {}
 
   public addItem = (item: ShoppingItem) => {
-    const oldItem = this._list.find((found) => found.name === item._name);
+    const oldItem = this._list.find((found) => found._name === item._name);
 
     if (oldItem) {
       oldItem.adjustQuantity(1);
     } else {
       this._list.push(new ListItem(item));
+    }
+  };
+
+  public removeItem = (item: ShoppingItem) => {
+    const oldItem = this._list.findIndex((found) => found._name === item._name);
+
+    if (oldItem > -1) {
+      this._list[oldItem].adjustQuantity(-1);
+      if (this._list[oldItem].quantity === 0) {
+        this._list.splice(oldItem, 1);
+      }
     }
   };
 
