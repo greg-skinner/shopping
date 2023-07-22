@@ -4,6 +4,9 @@
 .button {
   background: variables.$neutral-darker;
   background: var(--color);
+  height: 1.5rem;
+  border-radius: variables.$ui-border;
+  margin-left: variables.$simple-margin;
   @include mixins.pinline;
 
   &[data-disabled='true'] {

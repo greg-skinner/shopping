@@ -1,0 +1,26 @@
+@use '../../styles/mixins.scss';
+@use '../../styles/variables.scss';
+
+.wrapper {
+  background: variables.$neutral-background;
+  max-width: 400px;
+
+  .content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: variables.$simple-margin;
+    border-radius: variables.$ui-border;
+
+    .input {
+      flex-grow: 1;
+    }
+  }
+
+  .error {
+    font-size: 0.75rem;
+    color: variables.$pin-highlight;
+    text-align: center;
+    width: 100%;
+  }
+}

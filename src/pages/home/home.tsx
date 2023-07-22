@@ -1,25 +1,48 @@
 import * as React from 'react';
 
 import styles from './home.module.scss';
-import { useList } from '../../appProvider';
-import { GroceryDisplay } from '@components/groceryDisplay/groceryDisplay';
+import { useGroceries, useList } from '../../appProvider';
+import { GroceryDisplay } from '@components/groceryDisplay';
+import { Button } from '@components/button';
+import { AddGrocery } from '@components/addGrocery';
 
 export interface IHomeProps {}
 
 export const Home: React.FC<IHomeProps> = () => {
-  const { list } = useList();
+  const { shoppingList } = useList();
+  const { groceryList } = useGroceries();
+  const [addState, setAddState] = React.useState(false);
+  const [displayShopping, setDisplayShopping] = React.useState(false);
 
   return (
     <div className={styles.content}>
       <div className={styles.header}>
-        <div className={styles.toggle}>Shop</div>
+        <Button
+          onClick={() => setDisplayShopping(!displayShopping)}
+          className={styles.toggle}
+        >
+          {displayShopping ? 'Edit' : 'Shop'}
+        </Button>
         <span>SHOPPING LIST</span>
-        <div className={styles.toggle}>Add</div>
+        <Button
+          onClick={() => {
+            setAddState(true);
+          }}
+          className={styles.toggle}
+        >
+          Add
+        </Button>
       </div>
       <div className={styles.list}>
-        {list.map((item) => (
-          <GroceryDisplay key={item._name} item={item} />
-        ))}
+        {displayShopping &&
+          shoppingList.map((item) => (
+            <GroceryDisplay key={item._name} item={item} />
+          ))}
+        {!displayShopping &&
+          groceryList.map((item) => (
+            <GroceryDisplay key={item._name} item={item} />
+          ))}
+        {addState && <AddGrocery onComplete={() => setAddState(false)} />}
       </div>
     </div>
   );
