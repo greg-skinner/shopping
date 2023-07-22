@@ -2,7 +2,7 @@
 x Item data structure @View (include price)
 x List data structure @View
 x Display component @View
-Page layout @View
+x Page layout @View
 (A) @Add items to a shopping list
 Add data controller @Add (will also cover @Persist )
 Edit component @Add

@@ -3,6 +3,12 @@ body {
   font-size: 16px;
 }
 
+#root {
+  height: 100vh;
+  margin: auto;
+  max-width: 400px;
+}
+
 * {
   box-sizing: border-box;
 }
