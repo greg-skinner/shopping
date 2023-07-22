@@ -1,6 +1,6 @@
 import { ShoppingItem } from './shoppingItem';
 
-const GROCERIES_STORAGE_KEY = 'groceries';
+export const GROCERIES_STORAGE_KEY = 'groceries';
 
 export class Groceries {
   public get items() {
@@ -13,9 +13,11 @@ export class Groceries {
       const storedGroceries = localStorage.getItem(GROCERIES_STORAGE_KEY);
       if (storedGroceries) {
         const groceries = JSON.parse(storedGroceries);
-        groceries.map((item: ShoppingItem) =>
-          this._items.push(new ShoppingItem(item._name, item.price))
-        );
+        groceries.forEach((item: ShoppingItem) => {
+          if (item._name) {
+            this._items.push(new ShoppingItem(item._name, item.price));
+          }
+        });
       }
     } catch (e) {
       this._items = [];
@@ -23,7 +25,12 @@ export class Groceries {
   }
 
   private save = () => {
-    localStorage.setItem(GROCERIES_STORAGE_KEY, JSON.stringify(this.items));
+    localStorage.setItem(
+      GROCERIES_STORAGE_KEY,
+      JSON.stringify(
+        this.items.map((item) => ({ _name: item._name, price: item.price }))
+      )
+    );
   };
 
   public addItem = (name: string) => {

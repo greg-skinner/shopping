@@ -1,18 +1,18 @@
-(A) @View items on a shopping list
+x (A) @View items on a shopping list
 x Item data structure @View (include price)
 x List data structure @View
 x Display component @View
 x Page layout @View
-(A) @Add items to a shopping list
+x (A) @Add items to a shopping list
 x Add data controller @Add (will also cover @Persist )
-Edit component @Add
-(A) @Remove items from the shopping list
-Toggle page mode @Remove - display just current list in one, all available in other
-Data storage @Remove
-Update edit component @Remove
+x Edit component @Add
+x (A) @Remove items from the shopping list
+x Toggle page mode @Remove - display just current list in one, all available in other
+x Data storage @Remove
+x Update edit component @Remove
 (A) Mark @bought items off the list
 Update display component @bought
-(A) @Persist data between sessions
+x (A) @Persist data between sessions
 (B) @Reorder items in the shopping list
 Add drag and drop (react-select?) @Reorder
 (C) @Total up prices in the list
