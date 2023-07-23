@@ -1,0 +1,30 @@
+@use '../../styles/mixins.scss';
+@use '../../styles/variables.scss';
+
+.content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background: variables.$neutral-background;
+  padding: variables.$simple-margin;
+  border-radius: variables.$ui-border;
+  max-width: 400px;
+
+  .item {
+    font-size: 1.5rem;
+  }
+
+  &.bought {
+    background: variables.$neutral-light;
+
+    .item {
+      text-decoration: line-through;
+    }
+  }
+
+  .button {
+    height: 1.5rem;
+    border-radius: variables.$ui-border;
+    margin-left: variables.$simple-margin;
+  }
+}
