@@ -1,9 +1,10 @@
 import * as React from 'react';
 
-import styles from './addGrocery.module.scss';
-import { useGroceries, useList } from '../../appProvider';
-import { ShoppingItem } from '@model/shoppingItem';
 import { Button } from '@components/button/button';
+
+import { useGroceries } from '../../appProvider';
+
+import styles from './addGrocery.module.scss';
 
 export interface IAddGroceryProps {
   onComplete: () => void;

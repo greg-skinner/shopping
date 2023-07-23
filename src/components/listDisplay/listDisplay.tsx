@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Button } from '@components/button';
-import { ListItem } from '@model/shoppingItem';
+import { ListItem } from '@model/listItem';
 
 import { useList } from '../../appProvider';
 

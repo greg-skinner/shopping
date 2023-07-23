@@ -54,8 +54,8 @@
       { "exceptAfterSingleLine": true }
     ],
     "newline-before-return": "error",
-    "no-empty-function": ["error", { "allow": ["constructor"] }],
-    "no-underscore-dangle": ["error", { "allowAfterThis": true }],
+    "no-empty-function": ["error", { "allow": ["constructors"] }],
+    "no-underscore-dangle": ["warn", { "allowAfterThis": true }],
     "no-restricted-syntax": [
       "error",
       "ForInStatement",

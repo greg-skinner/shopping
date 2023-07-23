@@ -1,12 +1,13 @@
 import * as React from 'react';
 
+import { ListItem } from '@model/listItem';
+import { ShoppingItem } from '@model/shoppingItem';
 import { expect, jest } from '@storybook/jest';
 import type { Meta, StoryObj } from '@storybook/react';
 import { within } from '@storybook/testing-library';
 
-import { ListDisplay } from './listDisplay';
 import { AppProvider } from '../../appProvider';
-import { ListItem, ShoppingItem } from '@model/shoppingItem';
+import { ListDisplay } from './listDisplay';
 
 const meta: Meta<typeof ListDisplay> = {
   title: 'ListDisplay',

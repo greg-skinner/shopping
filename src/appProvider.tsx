@@ -1,7 +1,9 @@
+import * as React from 'react';
+
 import { Groceries } from '@model/groceries';
 import { ShoppingList } from '@model/list';
-import { ListItem, ShoppingItem } from '@model/shoppingItem';
-import * as React from 'react';
+import { ListItem } from '@model/listItem';
+import { ShoppingItem } from '@model/shoppingItem';
 
 export interface AppState {
   groceries: {
@@ -22,6 +24,8 @@ export interface AppState {
   };
 }
 
+/* eslint-disable @typescript-eslint/no-unused-vars -- Empty context */
+/* eslint-disable no-empty-function -- Empty context */
 export const emptyContext = {
   groceries: {
     groceryList: [],
@@ -36,6 +40,8 @@ export const emptyContext = {
     save: () => {},
   },
 };
+/* eslint-enable @typescript-eslint/no-unused-vars -- End empty context */
+/* eslint-enable no-empty-function -- End empty context */
 
 export const AppContext = React.createContext<AppState>(emptyContext);
 

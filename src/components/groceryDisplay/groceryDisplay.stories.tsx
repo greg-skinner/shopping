@@ -1,12 +1,12 @@
 import * as React from 'react';
 
+import { ShoppingItem } from '@model/shoppingItem';
 import { expect } from '@storybook/jest';
 import type { Meta, StoryObj } from '@storybook/react';
 import { within } from '@storybook/testing-library';
 
-import { GroceryDisplay } from './groceryDisplay';
-import { ShoppingItem } from '@model/shoppingItem';
 import { AppProvider } from '../../appProvider';
+import { GroceryDisplay } from './groceryDisplay';
 
 const meta: Meta<typeof GroceryDisplay> = {
   title: 'GroceryDisplay',

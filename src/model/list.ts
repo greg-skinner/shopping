@@ -1,4 +1,5 @@
-import { ListItem, ShoppingItem } from './shoppingItem';
+import { ListItem } from './listItem';
+import { ShoppingItem } from './shoppingItem';
 
 export const LIST_STORAGE_KEY = 'shopping-list';
 

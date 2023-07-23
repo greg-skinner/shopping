@@ -1,11 +1,13 @@
 import * as React from 'react';
 
-import styles from './home.module.scss';
-import { useGroceries, useList } from '../../appProvider';
-import { GroceryDisplay } from '@components/groceryDisplay';
-import { Button } from '@components/button';
 import { AddGrocery } from '@components/addGrocery';
+import { Button } from '@components/button';
+import { GroceryDisplay } from '@components/groceryDisplay';
 import { ListDisplay } from '@components/listDisplay';
+
+import { useGroceries, useList } from '../../appProvider';
+
+import styles from './home.module.scss';
 
 export interface IHomeProps {}
 

@@ -4,8 +4,8 @@ import { expect, jest } from '@storybook/jest';
 import type { Meta, StoryObj } from '@storybook/react';
 import { userEvent, within } from '@storybook/testing-library';
 
-import { AddGrocery } from './addGrocery';
 import { AppContext, emptyContext } from '../../appProvider';
+import { AddGrocery } from './addGrocery';
 
 const meta: Meta<typeof AddGrocery> = {
   title: 'AddGrocery',
@@ -21,18 +21,16 @@ export const Primary: Story = {
   args: {
     onComplete,
   },
-  render: (args) => {
-    return (
-      <AppContext.Provider
-        value={{
-          ...emptyContext,
-          groceries: { ...emptyContext.groceries, addGrocery },
-        }}
-      >
-        <AddGrocery data-testid="addGrocery" {...args} />
-      </AppContext.Provider>
-    );
-  },
+  render: (args) => (
+    <AppContext.Provider
+      value={{
+        ...emptyContext,
+        groceries: { ...emptyContext.groceries, addGrocery },
+      }}
+    >
+      <AddGrocery data-testid="addGrocery" {...args} />
+    </AppContext.Provider>
+  ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 

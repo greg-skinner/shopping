@@ -1,9 +1,11 @@
 import * as React from 'react';
 
-import styles from './groceryDisplay.module.scss';
-import { useList } from '../../appProvider';
-import { ShoppingItem } from '@model/shoppingItem';
 import { Button } from '@components/button/button';
+import { ShoppingItem } from '@model/shoppingItem';
+
+import { useList } from '../../appProvider';
+
+import styles from './groceryDisplay.module.scss';
 
 export interface IGroceryDisplayProps {
   item: ShoppingItem;
@@ -14,9 +16,10 @@ export const GroceryDisplay: React.FC<IGroceryDisplayProps> = ({
   ...rest
 }) => {
   const { shoppingList, addShopping, removeShopping } = useList();
-  const inBasket = React.useMemo(() => {
-    return shoppingList.find((basket) => basket._name === item._name);
-  }, [shoppingList]);
+  const inBasket = React.useMemo(
+    () => shoppingList.find((basket) => basket._name === item._name),
+    [shoppingList]
+  );
 
   return (
     <div className={styles.content} {...rest}>

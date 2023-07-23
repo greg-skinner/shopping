@@ -1,7 +1,8 @@
 import { storageMock } from '../mocks/storageMock';
-import { GROCERIES_STORAGE_KEY, Groceries } from './groceries';
+import { Groceries, GROCERIES_STORAGE_KEY } from './groceries';
 import { LIST_STORAGE_KEY, ShoppingList } from './list';
-import { ListItem, ShoppingItem } from './shoppingItem';
+import { ListItem } from './listItem';
+import { ShoppingItem } from './shoppingItem';
 
 describe('Item', () => {
   describe('Shopping item', () => {
@@ -158,7 +159,7 @@ describe('Item', () => {
       list.addItem(item);
 
       let missingItems = list.cleanList();
-      let storage = global.localStorage.getItem(LIST_STORAGE_KEY);
+      const storage = global.localStorage.getItem(LIST_STORAGE_KEY);
 
       expect(list.list.length).toBe(1);
       expect(missingItems.length).toBe(0);
