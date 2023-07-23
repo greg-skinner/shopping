@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-import { ShoppingItem } from '@model/shoppingItem';
-import { expect } from '@storybook/jest';
 import type { Meta, StoryObj } from '@storybook/react';
 import { within } from '@storybook/testing-library';
 
@@ -15,10 +13,10 @@ const meta: Meta<typeof PriceControl> = {
 
 type Story = StoryObj<typeof PriceControl>;
 
-const testShoppingItem = 'Test item';
-
 export const Primary: Story = {
-  args: {},
+  args: {
+    editMode: false,
+  },
   render: (args) => (
     <AppProvider>
       <PriceControl data-testid="PriceControl" {...args} />
