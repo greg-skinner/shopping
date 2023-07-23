@@ -1,0 +1,7 @@
+@use '../../styles/variables.scss';
+
+.price {
+  .warn {
+    color: variables.$pin-highlight;
+  }
+}

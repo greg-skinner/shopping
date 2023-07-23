@@ -8,6 +8,8 @@ import { ListDisplay } from '@components/listDisplay';
 import { useGroceries, useList } from '../../appProvider';
 
 import styles from './home.module.scss';
+import classNames from 'classnames';
+import { PriceControl } from '@components/priceControl';
 
 export interface IHomeProps {}
 
@@ -15,6 +17,7 @@ export const Home: React.FC<IHomeProps> = () => {
   const { shoppingList, cleanList } = useList();
   const { groceryList } = useGroceries();
   const [addState, setAddState] = React.useState(false);
+  const [editMode, setEditMode] = React.useState(false);
   const [displayShopping, setDisplayShopping] = React.useState(false);
 
   return (
@@ -46,20 +49,25 @@ export const Home: React.FC<IHomeProps> = () => {
             ))}
           {!displayShopping &&
             groceryList.map((item) => (
-              <GroceryDisplay key={item._name} item={item} />
+              <GroceryDisplay
+                key={item._name}
+                item={item}
+                editMode={editMode}
+              />
             ))}
           {addState && <AddGrocery onComplete={() => setAddState(false)} />}
         </div>
       </div>
       <div className={styles.footer}>
+        <PriceControl editMode={editMode} />
         {!displayShopping && (
           <Button
             onClick={() => {
-              setAddState(true);
+              setEditMode(!editMode);
             }}
-            className={styles.toggle}
+            className={classNames(styles.toggle, styles.button)}
           >
-            Add
+            {!editMode ? 'Edit' : 'Done'}
           </Button>
         )}
         {displayShopping && (
@@ -67,7 +75,7 @@ export const Home: React.FC<IHomeProps> = () => {
             onClick={() => {
               cleanList();
             }}
-            className={styles.toggle}
+            className={classNames(styles.toggle, styles.button)}
           >
             Clean list
           </Button>

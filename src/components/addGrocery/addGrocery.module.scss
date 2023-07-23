@@ -6,14 +6,15 @@
   max-width: 400px;
 
   .content {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    display: grid;
+    grid-template: '. . .';
+    grid-template-columns: 3fr 1fr 1fr;
+    column-gap: variables.$simple-margin;
     padding: variables.$simple-margin;
     border-radius: variables.$ui-border;
 
-    .input {
-      flex-grow: 1;
+    input {
+      width: 100%;
     }
   }
 

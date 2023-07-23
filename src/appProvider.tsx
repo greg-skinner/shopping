@@ -8,7 +8,7 @@ import { ShoppingItem } from '@model/shoppingItem';
 export interface AppState {
   groceries: {
     groceryList: ShoppingItem[];
-    addGrocery: (name: string) => void;
+    addGrocery: (name: string, price?: number) => void;
     updateGrocery: (
       oldName: string,
       newName: string,
@@ -29,7 +29,7 @@ export interface AppState {
 export const emptyContext = {
   groceries: {
     groceryList: [],
-    addGrocery: (name: string) => {},
+    addGrocery: (name: string, price?: number) => {},
     updateGrocery: (oldName: string, newName: string, newPrice?: number) => {},
   },
   list: {
@@ -70,7 +70,7 @@ export const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({
     setState(!state);
   };
 
-  const addGrocery = (name: string) => {
+  const addGrocery = (name: string, price?: number) => {
     groceryStore.addItem(name);
     setState(!state);
   };

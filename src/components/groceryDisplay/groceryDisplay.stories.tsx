@@ -20,6 +20,7 @@ const testShoppingItem = 'Test item';
 export const Primary: Story = {
   args: {
     item: new ShoppingItem(testShoppingItem, 0),
+    editMode: false,
   },
   render: (args) => (
     <AppProvider>

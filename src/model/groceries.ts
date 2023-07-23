@@ -36,8 +36,8 @@ export class Groceries {
     );
   };
 
-  public addItem = (name: string) => {
-    this._items.push(new ShoppingItem(name));
+  public addItem = (name: string, price?: number) => {
+    this._items.push(new ShoppingItem(name, price));
     this.save();
   };
 

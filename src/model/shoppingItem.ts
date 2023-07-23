@@ -5,6 +5,6 @@ export class ShoppingItem {
 
   constructor(
     public _name: string,
-    private _price?: number
+    private _price = 0
   ) {}
 }

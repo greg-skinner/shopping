@@ -2,9 +2,10 @@
 @use '../../styles/variables.scss';
 
 .content {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  display: grid;
+  grid-template: '. . . .';
+  grid-template-columns: 1fr 4fr 2fr 1.5fr;
+  align-items: center;
   background: variables.$neutral-background;
   padding: variables.$simple-margin;
   border-radius: variables.$ui-border;
@@ -24,10 +25,27 @@
     font-size: 1.5rem;
   }
 
+  .price {
+    text-align: right;
+  }
+
+  input {
+    width: 100%;
+
+    &.price {
+      text-align: left;
+    }
+  }
+
   .button {
     width: 1.5rem;
     height: 1.5rem;
     border-radius: variables.$ui-border;
     margin-left: variables.$simple-margin;
+  }
+
+  .error {
+    color: variables.$pin-highlight;
+    text-align: center;
   }
 }

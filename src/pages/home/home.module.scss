@@ -13,7 +13,7 @@
     padding: variables.$simple-margin;
     display: grid;
     grid-template: '. . .';
-    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-columns: 1fr 3fr 1fr;
     justify-content: space-between;
     text-align: center;
     @include mixins.panel-border(variables.$neutral-background);
@@ -29,9 +29,14 @@
 
   .footer {
     padding: variables.$simple-margin;
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template: 'price . button';
+    grid-template-columns: 1fr 3fr 1fr;
     justify-content: space-between;
     @include mixins.panel-border(variables.$neutral-background);
+
+    .button {
+      grid-area: button;
+    }
   }
 }

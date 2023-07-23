@@ -34,7 +34,8 @@ export const Primary: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const input = await canvas.getByTestId('grocery-input');
+    const nameInput = await canvas.getByTestId('grocery-input');
+    const priceInput = await canvas.getByTestId('grocery-price');
     const complete = await canvas.getByTestId('grocery-complete');
 
     expect(await canvas.queryAllByTestId('grocery-error', {})).toHaveLength(0);
@@ -44,13 +45,15 @@ export const Primary: Story = {
     expect(await canvas.getAllByTestId('grocery-error')).toHaveLength(1);
 
     const grocery = 'New grocery name';
-    await userEvent.type(input, grocery);
+    const price = '27';
+    await userEvent.type(nameInput, grocery);
+    await userEvent.type(priceInput, price);
 
     expect(await canvas.queryAllByTestId('grocery-error')).toHaveLength(0);
 
     await complete.click();
 
-    expect(addGrocery).toBeCalledWith(grocery);
+    expect(addGrocery).toBeCalledWith(grocery, parseInt(price, 10));
     expect(onComplete).toBeCalledTimes(1);
   },
 };
