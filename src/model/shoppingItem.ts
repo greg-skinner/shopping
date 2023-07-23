@@ -15,7 +15,6 @@ export class ListItem extends ShoppingItem {
     return this._purchased;
   }
 
-  private _quantity = 1;
   public get quantity() {
     return this._quantity;
   }
@@ -27,7 +26,10 @@ export class ListItem extends ShoppingItem {
     return `${this._quantity} ${this._name}s`;
   }
 
-  constructor(item: ShoppingItem) {
+  constructor(
+    item: ShoppingItem,
+    private _quantity = 1
+  ) {
     super(item._name, item.price);
   }
 

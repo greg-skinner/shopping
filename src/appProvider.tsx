@@ -18,6 +18,7 @@ export interface AppState {
     addShopping: (item: ShoppingItem) => void;
     removeShopping: (item: ShoppingItem) => void;
     cleanList: () => void;
+    save: () => void;
   };
 }
 
@@ -32,6 +33,7 @@ export const emptyContext = {
     addShopping: (item: ShoppingItem) => {},
     removeShopping: (item: ShoppingItem) => {},
     cleanList: () => {},
+    save: () => {},
   },
 };
 
@@ -85,6 +87,7 @@ export const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({
           addShopping,
           removeShopping,
           cleanList,
+          save: shoppingStore.save,
         },
       }}
     >

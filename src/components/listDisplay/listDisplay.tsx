@@ -1,8 +1,11 @@
 import * as React from 'react';
 
-import styles from './listDisplay.module.scss';
-import { ListItem } from '@model/shoppingItem';
 import { Button } from '@components/button';
+import { ListItem } from '@model/shoppingItem';
+
+import { useList } from '../../appProvider';
+
+import styles from './listDisplay.module.scss';
 import classnames from 'classnames';
 
 export interface IListDisplayProps {
@@ -10,11 +13,13 @@ export interface IListDisplayProps {
 }
 
 export const ListDisplay: React.FC<IListDisplayProps> = ({ item, ...rest }) => {
+  const { save } = useList();
   const [bought, setBought] = React.useState(item.purchased);
 
   const buy = () => {
     setBought(!bought);
     item.purchase(!bought);
+    save();
   };
 
   return (

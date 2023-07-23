@@ -1,6 +1,6 @@
 import { storageMock } from '../mocks/storageMock';
 import { GROCERIES_STORAGE_KEY, Groceries } from './groceries';
-import { ShoppingList } from './list';
+import { LIST_STORAGE_KEY, ShoppingList } from './list';
 import { ListItem, ShoppingItem } from './shoppingItem';
 
 describe('Item', () => {
@@ -48,19 +48,81 @@ describe('Item', () => {
   });
 
   describe('List', () => {
+    it('creates an empty list without storage', () => {
+      global.localStorage = storageMock();
+      const shoppingList = new ShoppingList();
+
+      expect(shoppingList.list.length).toBe(0);
+    });
+
+    it('loads existing List', () => {
+      const itemName = 'Test item';
+      const itemPrice = 3;
+      const itemQuantity = 1;
+      global.localStorage = storageMock({
+        [LIST_STORAGE_KEY]: JSON.stringify([
+          { _name: itemName, price: itemPrice, quantity: itemQuantity },
+        ]),
+      });
+
+      const shoppingList = new ShoppingList();
+      expect(shoppingList.list).toHaveLength(1);
+      expect(shoppingList.list[0]._name).toBe(itemName);
+      expect(shoppingList.list[0].price).toBe(itemPrice);
+      expect(shoppingList.list[0].quantity).toBe(itemQuantity);
+    });
+
+    it('handles badly saved data without crashing', () => {
+      global.localStorage = storageMock({
+        [LIST_STORAGE_KEY]: JSON.stringify([
+          { _name: 'Item 1', price: 0, quantity: 1 },
+          { _name: 'Item 2' },
+          { _name: 'Item 3', otherField: 'N/A' },
+          { price: 0 },
+          { bad: 'data' },
+          { _name: 'Item 6', price: 0 },
+        ]),
+      });
+
+      const shoppingList = new ShoppingList();
+      expect(shoppingList.list).toHaveLength(4);
+    });
+
+    it("doesn't crash when presented with bad data", () => {
+      global.localStorage = storageMock({
+        [LIST_STORAGE_KEY]: "[string that isn't valid json",
+      });
+
+      expect(() => new ShoppingList()).not.toThrow();
+      const shoppingList = new ShoppingList();
+
+      expect(shoppingList.list.length).toBe(0);
+    });
+
     it('can add and remove items', () => {
+      global.localStorage = storageMock();
+
       const list = new ShoppingList();
       const item = new ShoppingItem('test');
+      let storage = global.localStorage.getItem(LIST_STORAGE_KEY);
 
       expect(list.list.length).toBe(0);
+      expect(storage).toBeTruthy();
+      expect(JSON.parse(storage!).length).toBe(0);
 
       list.addItem(item);
+      storage = global.localStorage.getItem(LIST_STORAGE_KEY);
 
       expect(list.list.length).toBe(1);
+      expect(storage).toBeTruthy();
+      expect(JSON.parse(storage!).length).toBe(1);
 
       list.removeItem(item);
+      storage = global.localStorage.getItem(LIST_STORAGE_KEY);
 
       expect(list.list.length).toBe(0);
+      expect(storage).toBeTruthy();
+      expect(JSON.parse(storage!).length).toBe(0);
     });
 
     it('multiples of the same item stack', () => {
@@ -68,16 +130,26 @@ describe('Item', () => {
       const item = new ShoppingItem('test');
       list.addItem(item);
       list.addItem(item);
+      let storage = global.localStorage.getItem(LIST_STORAGE_KEY);
 
       expect(list.list.length).toBe(1);
       expect(list.list[0].quantity).toBe(2);
       expect(list.list[0].name).toBe('2 tests');
+      expect(storage).toBeTruthy();
+      expect(JSON.parse(storage!).length).toBe(1);
+      expect(JSON.parse(storage!)[0].quantity).toBe(2);
+      expect(JSON.parse(storage!)[0]._name).toBe('test');
 
       list.removeItem(item);
+      storage = global.localStorage.getItem(LIST_STORAGE_KEY);
 
       expect(list.list.length).toBe(1);
       expect(list.list[0].quantity).toBe(1);
       expect(list.list[0].name).toBe('test');
+      expect(storage).toBeTruthy();
+      expect(JSON.parse(storage!).length).toBe(1);
+      expect(JSON.parse(storage!)[0].quantity).toBe(1);
+      expect(JSON.parse(storage!)[0]._name).toBe('test');
     });
 
     it('can clean the list', () => {
@@ -86,9 +158,12 @@ describe('Item', () => {
       list.addItem(item);
 
       let missingItems = list.cleanList();
+      let storage = global.localStorage.getItem(LIST_STORAGE_KEY);
 
       expect(list.list.length).toBe(1);
       expect(missingItems.length).toBe(0);
+      expect(storage).toBeTruthy();
+      expect(JSON.parse(storage!).length).toBe(1);
 
       list.list[0].purchase(true);
 
@@ -156,12 +231,11 @@ describe('Item', () => {
       const groceries = new Groceries();
       groceries.addItem(names[0]);
       groceries.addItem(names[1]);
+      const storage = global.localStorage.getItem(GROCERIES_STORAGE_KEY);
 
       expect(groceries.items.length).toBe(2);
       expect(groceries.items[0]._name).toBe(names[0]);
       expect(groceries.items[1]._name).toBe(names[1]);
-
-      const storage = global.localStorage.getItem(GROCERIES_STORAGE_KEY);
       expect(storage).toBeTruthy();
       expect(JSON.parse(storage!)).toHaveLength(2);
       expect(JSON.parse(storage!)[0]._name).toBe(names[0]);
@@ -177,6 +251,7 @@ describe('Item', () => {
       groceries.addItem(names[0]);
       groceries.addItem(names[1]);
       groceries.updateItem(names[0], names[2], price);
+      const storage = global.localStorage.getItem(GROCERIES_STORAGE_KEY);
 
       expect(groceries.items.length).toBe(2);
       expect(groceries.items[0]._name).toBe(names[2]);
@@ -184,8 +259,6 @@ describe('Item', () => {
       expect(
         groceries.items.find((item) => item._name === names[0])
       ).toBeFalsy();
-
-      const storage = global.localStorage.getItem(GROCERIES_STORAGE_KEY);
       expect(storage).toBeTruthy();
       expect(JSON.parse(storage!)).toHaveLength(2);
       expect(JSON.parse(storage!)[0]._name).toBe(names[2]);

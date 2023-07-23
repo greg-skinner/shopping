@@ -6,6 +6,7 @@ export class Groceries {
   public get items() {
     return [...this._items];
   }
+
   private _items: ShoppingItem[] = [];
 
   constructor() {
@@ -22,6 +23,8 @@ export class Groceries {
     } catch (e) {
       this._items = [];
     }
+
+    this.save();
   }
 
   private save = () => {
