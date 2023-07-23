@@ -4,12 +4,12 @@ import { AddGrocery } from '@components/addGrocery';
 import { Button } from '@components/button';
 import { GroceryDisplay } from '@components/groceryDisplay';
 import { ListDisplay } from '@components/listDisplay';
+import { PriceControl } from '@components/priceControl';
 
 import { useGroceries, useList } from '../../appProvider';
 
 import styles from './home.module.scss';
 import classNames from 'classnames';
-import { PriceControl } from '@components/priceControl';
 
 export interface IHomeProps {}
 
