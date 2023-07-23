@@ -77,7 +77,7 @@ export const Home: React.FC<IHomeProps> = () => {
             }}
             className={classNames(styles.toggle, styles.button)}
           >
-            Clean list
+            Clean
           </Button>
         )}
       </div>
