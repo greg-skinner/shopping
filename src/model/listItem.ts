@@ -1,7 +1,6 @@
 import { ShoppingItem } from './shoppingItem';
 
 export class ListItem extends ShoppingItem {
-  private _purchased = false;
   public get purchased() {
     return this._purchased;
   }
@@ -20,7 +19,8 @@ export class ListItem extends ShoppingItem {
 
   constructor(
     item: ShoppingItem,
-    private _quantity = 1
+    private _quantity = 1,
+    private _purchased = false
   ) {
     super(item._name, item.price);
   }

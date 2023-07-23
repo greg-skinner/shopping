@@ -60,9 +60,15 @@ describe('Item', () => {
       const itemName = 'Test item';
       const itemPrice = 3;
       const itemQuantity = 1;
+      const itemPurchased = true;
       global.localStorage = storageMock({
         [LIST_STORAGE_KEY]: JSON.stringify([
-          { _name: itemName, price: itemPrice, quantity: itemQuantity },
+          {
+            _name: itemName,
+            price: itemPrice,
+            quantity: itemQuantity,
+            purchased: itemPurchased,
+          },
         ]),
       });
 
@@ -71,6 +77,7 @@ describe('Item', () => {
       expect(shoppingList.list[0]._name).toBe(itemName);
       expect(shoppingList.list[0].price).toBe(itemPrice);
       expect(shoppingList.list[0].quantity).toBe(itemQuantity);
+      expect(shoppingList.list[0].purchased).toBe(itemPurchased);
     });
 
     it('handles badly saved data without crashing', () => {

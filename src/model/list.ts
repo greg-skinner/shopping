@@ -20,7 +20,8 @@ export class ShoppingList {
             this._list.push(
               new ListItem(
                 new ShoppingItem(item._name, item.price),
-                item.quantity
+                item.quantity,
+                item.purchased
               )
             );
           }
@@ -41,6 +42,7 @@ export class ShoppingList {
           _name: item._name,
           price: item.price,
           quantity: item.quantity,
+          purchased: item.purchased,
         }))
       )
     );
