@@ -80,14 +80,22 @@ describe('Item', () => {
       expect(list.list[0].name).toBe('test');
     });
 
-    it('can clear the list', () => {
+    it('can clean the list', () => {
       const list = new ShoppingList();
       const item = new ShoppingItem('test');
       list.addItem(item);
 
-      const missingItems = list.clearList();
+      let missingItems = list.cleanList();
+
+      expect(list.list.length).toBe(1);
+      expect(missingItems.length).toBe(0);
+
+      list.list[0].purchase(true);
+
+      missingItems = list.cleanList();
 
       expect(list.list.length).toBe(0);
+      expect(missingItems.length).toBe(1);
     });
   });
 

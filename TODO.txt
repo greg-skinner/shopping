@@ -10,7 +10,7 @@ x (A) @Remove items from the shopping list
 x Toggle page mode @Remove - display just current list in one, all available in other
 x Data storage @Remove
 x Update edit component @Remove
-(A) Mark @bought items off the list
+x (A) Mark @bought items off the list
 x Update display component @bought
 x (A) @Persist data between sessions
 (B) @Reorder items in the shopping list

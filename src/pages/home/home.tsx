@@ -5,17 +5,18 @@ import { useGroceries, useList } from '../../appProvider';
 import { GroceryDisplay } from '@components/groceryDisplay';
 import { Button } from '@components/button';
 import { AddGrocery } from '@components/addGrocery';
+import { ListDisplay } from '@components/listDisplay';
 
 export interface IHomeProps {}
 
 export const Home: React.FC<IHomeProps> = () => {
-  const { shoppingList } = useList();
+  const { shoppingList, cleanList } = useList();
   const { groceryList } = useGroceries();
   const [addState, setAddState] = React.useState(false);
   const [displayShopping, setDisplayShopping] = React.useState(false);
 
   return (
-    <div className={styles.content}>
+    <div className={styles.page}>
       <div className={styles.header}>
         <Button
           onClick={() => setDisplayShopping(!displayShopping)}
@@ -24,25 +25,51 @@ export const Home: React.FC<IHomeProps> = () => {
           {displayShopping ? 'Edit' : 'Shop'}
         </Button>
         <span>SHOPPING LIST</span>
-        <Button
-          onClick={() => {
-            setAddState(true);
-          }}
-          className={styles.toggle}
-        >
-          Add
-        </Button>
+        {!displayShopping && (
+          <Button
+            onClick={() => {
+              setAddState(!addState);
+            }}
+            className={styles.toggle}
+          >
+            {!addState ? 'Add' : 'Cancel'}
+          </Button>
+        )}
       </div>
-      <div className={styles.list}>
-        {displayShopping &&
-          shoppingList.map((item) => (
-            <GroceryDisplay key={item._name} item={item} />
-          ))}
-        {!displayShopping &&
-          groceryList.map((item) => (
-            <GroceryDisplay key={item._name} item={item} />
-          ))}
-        {addState && <AddGrocery onComplete={() => setAddState(false)} />}
+      <div className={styles.content}>
+        <div className={styles.list}>
+          {displayShopping &&
+            shoppingList.map((item) => (
+              <ListDisplay key={item._name} item={item} />
+            ))}
+          {!displayShopping &&
+            groceryList.map((item) => (
+              <GroceryDisplay key={item._name} item={item} />
+            ))}
+          {addState && <AddGrocery onComplete={() => setAddState(false)} />}
+        </div>
+      </div>
+      <div className={styles.footer}>
+        {!displayShopping && (
+          <Button
+            onClick={() => {
+              setAddState(true);
+            }}
+            className={styles.toggle}
+          >
+            Add
+          </Button>
+        )}
+        {displayShopping && (
+          <Button
+            onClick={() => {
+              cleanList();
+            }}
+            className={styles.toggle}
+          >
+            Clean list
+          </Button>
+        )}
       </div>
     </div>
   );

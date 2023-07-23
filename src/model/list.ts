@@ -29,12 +29,12 @@ export class ShoppingList {
     }
   };
 
-  public clearList = () => {
+  public cleanList = () => {
+    const purchased = this._list.filter((item) => item.purchased === true);
+
+    this._list = this._list.filter((item) => item.purchased === false);
+
     // Not currently used, but potentially handy to have.
-    const notPurchased = this._list.filter((item) => item.purchased === false);
-
-    this._list = [];
-
-    return notPurchased;
+    return purchased;
   };
 }

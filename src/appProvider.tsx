@@ -17,6 +17,7 @@ export interface AppState {
     shoppingList: ListItem[];
     addShopping: (item: ShoppingItem) => void;
     removeShopping: (item: ShoppingItem) => void;
+    cleanList: () => void;
   };
 }
 
@@ -30,6 +31,7 @@ export const emptyContext = {
     shoppingList: [],
     addShopping: (item: ShoppingItem) => {},
     removeShopping: (item: ShoppingItem) => {},
+    cleanList: () => {},
   },
 };
 
@@ -55,6 +57,11 @@ export const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({
     setState(!state);
   };
 
+  const cleanList = () => {
+    shoppingStore.cleanList();
+    setState(!state);
+  };
+
   const addGrocery = (name: string) => {
     groceryStore.addItem(name);
     setState(!state);
@@ -73,7 +80,12 @@ export const AppProvider: React.FC<React.PropsWithChildren<{}>> = ({
     <AppContext.Provider
       value={{
         groceries: { groceryList, addGrocery, updateGrocery },
-        list: { shoppingList, addShopping, removeShopping },
+        list: {
+          shoppingList,
+          addShopping,
+          removeShopping,
+          cleanList,
+        },
       }}
     >
       {children}
