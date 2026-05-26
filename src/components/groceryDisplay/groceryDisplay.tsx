@@ -25,10 +25,10 @@ export const GroceryDisplay: React.FC<IGroceryDisplayProps> = ({
   const { shoppingList, addShopping, removeShopping } = useList();
 
   const inBasket = React.useMemo(
-    () => shoppingList.find((basket) => basket._name === item._name),
+    () => shoppingList.find((basket) => basket._name === item.name),
     [shoppingList]
   );
-
+  console.log(item.name, shoppingList, inBasket);
   const update = React.useCallback(() => {
     setError(false);
 
@@ -39,7 +39,7 @@ export const GroceryDisplay: React.FC<IGroceryDisplayProps> = ({
       setTimeout(() => {
         if (textRef.current?.value && textRef.current?.value !== '') {
           updateGrocery(
-            item._name,
+            item.name,
             textRef.current?.value,
             priceRef.current?.value
               ? parseInt(priceRef.current?.value, 10)
@@ -59,7 +59,7 @@ export const GroceryDisplay: React.FC<IGroceryDisplayProps> = ({
       </div>
       {!editMode && (
         <div data-testid="item-label" className={styles.item}>
-          {item._name}
+          {item.name}
         </div>
       )}
       {editMode && (
@@ -69,23 +69,7 @@ export const GroceryDisplay: React.FC<IGroceryDisplayProps> = ({
           className={styles.input}
           onChange={update}
           placeholder="Item name"
-          defaultValue={item._name}
-        />
-      )}
-      {!editMode && (
-        <div data-testid="item-price" className={styles.price}>
-          £{item.price}
-        </div>
-      )}
-      {editMode && (
-        <input
-          type="number"
-          ref={priceRef}
-          data-testid="grocery-price"
-          className={styles.price}
-          onChange={update}
-          placeholder="Price"
-          defaultValue={item.price}
+          defaultValue={item.name}
         />
       )}
       <div className={styles.buttonContainer}>

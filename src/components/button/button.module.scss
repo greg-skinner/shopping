@@ -10,5 +10,6 @@
 
   &[data-disabled='true'] {
     background: variables.$neutral-darker;
+    color: variables.$neutral-light;
   }
 }

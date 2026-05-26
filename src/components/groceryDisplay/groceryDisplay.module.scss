@@ -3,8 +3,8 @@
 
 .content {
   display: grid;
-  grid-template: '. . . .';
-  grid-template-columns: 1fr 4fr 2fr 1.5fr;
+  grid-template: '. . .';
+  grid-template-columns: 1fr 4fr 1.5fr;
   align-items: center;
   background: variables.$neutral-background;
   padding: variables.$simple-margin;
@@ -19,6 +19,11 @@
     margin-right: variables.$simple-margin;
     text-align: center;
     font-size: 1.5rem;
+  }
+
+  .button-container {
+    display: flex;
+    margin: auto;
   }
 
   .item {

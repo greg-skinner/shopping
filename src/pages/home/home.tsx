@@ -4,7 +4,6 @@ import { AddGrocery } from '@components/addGrocery';
 import { Button } from '@components/button';
 import { GroceryDisplay } from '@components/groceryDisplay';
 import { ListDisplay } from '@components/listDisplay';
-import { PriceControl } from '@components/priceControl';
 
 import { useGroceries, useList } from '../../appProvider';
 
@@ -16,7 +15,7 @@ export interface IHomeProps {}
 export const Home: React.FC<IHomeProps> = () => {
   const { shoppingList, cleanList } = useList();
   const { groceryList } = useGroceries();
-  const [addState, setAddState] = React.useState(false);
+  const [filter, setFilter] = React.useState('');
   const [editMode, setEditMode] = React.useState(false);
   const [displayShopping, setDisplayShopping] = React.useState(false);
 
@@ -30,36 +29,29 @@ export const Home: React.FC<IHomeProps> = () => {
           {displayShopping ? 'Edit' : 'Shop'}
         </Button>
         <span>SHOPPING LIST</span>
-        {!displayShopping && (
-          <Button
-            onClick={() => {
-              setAddState(!addState);
-            }}
-            className={styles.toggle}
-          >
-            {!addState ? 'Add' : 'Cancel'}
-          </Button>
-        )}
       </div>
       <div className={styles.content}>
         <div className={styles.list}>
+          {!displayShopping && (
+            <AddGrocery filterCount={0} onUpdate={setFilter} />
+          )}
           {displayShopping &&
             shoppingList.map((item) => (
-              <ListDisplay key={item._name} item={item} />
+              <ListDisplay key={item.name} item={item} />
             ))}
           {!displayShopping &&
-            groceryList.map((item) => (
-              <GroceryDisplay
-                key={item._name}
-                item={item}
-                editMode={editMode}
-              />
-            ))}
-          {addState && <AddGrocery onComplete={() => setAddState(false)} />}
+            groceryList
+              .filter((item) => filter.length === 0 || item.name.match(filter))
+              .map((item) => (
+                <GroceryDisplay
+                  key={item.name}
+                  item={item}
+                  editMode={editMode}
+                />
+              ))}
         </div>
       </div>
       <div className={styles.footer}>
-        <PriceControl editMode={editMode} />
         {!displayShopping && (
           <Button
             onClick={() => {

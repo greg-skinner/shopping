@@ -9,7 +9,7 @@ describe('Item', () => {
     it('has a name and a price', () => {
       const newItem = new ShoppingItem('test', 1);
 
-      expect(newItem._name).toBe('test');
+      expect(newItem.name).toBe('test');
       expect(newItem.price).toBe(1);
     });
   });
@@ -19,7 +19,7 @@ describe('Item', () => {
       const storageItem = new ShoppingItem('test', 1);
       const listItem = new ListItem(storageItem);
 
-      expect(listItem.name).toBe(storageItem._name);
+      expect(listItem.name).toBe(storageItem.name);
       expect(listItem.price).toBe(storageItem.price);
     });
 
@@ -64,7 +64,7 @@ describe('Item', () => {
       global.localStorage = storageMock({
         [LIST_STORAGE_KEY]: JSON.stringify([
           {
-            _name: itemName,
+            name: itemName,
             price: itemPrice,
             quantity: itemQuantity,
             purchased: itemPurchased,
@@ -74,7 +74,7 @@ describe('Item', () => {
 
       const shoppingList = new ShoppingList();
       expect(shoppingList.list).toHaveLength(1);
-      expect(shoppingList.list[0]._name).toBe(itemName);
+      expect(shoppingList.list[0].name).toBe(itemName);
       expect(shoppingList.list[0].price).toBe(itemPrice);
       expect(shoppingList.list[0].quantity).toBe(itemQuantity);
       expect(shoppingList.list[0].purchased).toBe(itemPurchased);
@@ -83,12 +83,12 @@ describe('Item', () => {
     it('handles badly saved data without crashing', () => {
       global.localStorage = storageMock({
         [LIST_STORAGE_KEY]: JSON.stringify([
-          { _name: 'Item 1', price: 0, quantity: 1 },
-          { _name: 'Item 2' },
-          { _name: 'Item 3', otherField: 'N/A' },
+          { name: 'Item 1', price: 0, quantity: 1 },
+          { name: 'Item 2' },
+          { name: 'Item 3', otherField: 'N/A' },
           { price: 0 },
           { bad: 'data' },
-          { _name: 'Item 6', price: 0 },
+          { name: 'Item 6', price: 0 },
         ]),
       });
 
@@ -146,7 +146,7 @@ describe('Item', () => {
       expect(storage).toBeTruthy();
       expect(JSON.parse(storage!).length).toBe(1);
       expect(JSON.parse(storage!)[0].quantity).toBe(2);
-      expect(JSON.parse(storage!)[0]._name).toBe('test');
+      expect(JSON.parse(storage!)[0].name).toBe('test');
 
       list.removeItem(item);
       storage = global.localStorage.getItem(LIST_STORAGE_KEY);
@@ -157,7 +157,7 @@ describe('Item', () => {
       expect(storage).toBeTruthy();
       expect(JSON.parse(storage!).length).toBe(1);
       expect(JSON.parse(storage!)[0].quantity).toBe(1);
-      expect(JSON.parse(storage!)[0]._name).toBe('test');
+      expect(JSON.parse(storage!)[0].name).toBe('test');
     });
 
     it('can clean the list', () => {
@@ -195,25 +195,25 @@ describe('Item', () => {
       const itemPrice = 3;
       global.localStorage = storageMock({
         [GROCERIES_STORAGE_KEY]: JSON.stringify([
-          { _name: itemName, price: itemPrice },
+          { name: itemName, price: itemPrice },
         ]),
       });
 
       const groceries = new Groceries();
       expect(groceries.items).toHaveLength(1);
-      expect(groceries.items[0]._name).toBe(itemName);
+      expect(groceries.items[0].name).toBe(itemName);
       expect(groceries.items[0].price).toBe(itemPrice);
     });
 
     it('handles badly saved data without crashing', () => {
       global.localStorage = storageMock({
         [GROCERIES_STORAGE_KEY]: JSON.stringify([
-          { _name: 'Item 1', price: 0 },
-          { _name: 'Item 2' },
-          { _name: 'Item 3', otherField: 'N/A' },
+          { name: 'Item 1', price: 0 },
+          { name: 'Item 2' },
+          { name: 'Item 3', otherField: 'N/A' },
           { price: 0 },
           { bad: 'data' },
-          { _name: 'Item 6', price: 0 },
+          { name: 'Item 6', price: 0 },
         ]),
       });
 
@@ -242,12 +242,12 @@ describe('Item', () => {
       const storage = global.localStorage.getItem(GROCERIES_STORAGE_KEY);
 
       expect(groceries.items.length).toBe(2);
-      expect(groceries.items[0]._name).toBe(names[0]);
-      expect(groceries.items[1]._name).toBe(names[1]);
+      expect(groceries.items[0].name).toBe(names[0]);
+      expect(groceries.items[1].name).toBe(names[1]);
       expect(storage).toBeTruthy();
       expect(JSON.parse(storage!)).toHaveLength(2);
-      expect(JSON.parse(storage!)[0]._name).toBe(names[0]);
-      expect(JSON.parse(storage!)[1]._name).toBe(names[1]);
+      expect(JSON.parse(storage!)[0].name).toBe(names[0]);
+      expect(JSON.parse(storage!)[1].name).toBe(names[1]);
     });
 
     it('updates and saves old items', () => {
@@ -262,18 +262,18 @@ describe('Item', () => {
       const storage = global.localStorage.getItem(GROCERIES_STORAGE_KEY);
 
       expect(groceries.items.length).toBe(2);
-      expect(groceries.items[0]._name).toBe(names[2]);
+      expect(groceries.items[0].name).toBe(names[2]);
       expect(groceries.items[0].price).toBe(price);
       expect(
-        groceries.items.find((item) => item._name === names[0])
+        groceries.items.find((item) => item.name === names[0])
       ).toBeFalsy();
       expect(storage).toBeTruthy();
       expect(JSON.parse(storage!)).toHaveLength(2);
-      expect(JSON.parse(storage!)[0]._name).toBe(names[2]);
+      expect(JSON.parse(storage!)[0].name).toBe(names[2]);
       expect(JSON.parse(storage!)[0].price).toBe(price);
       expect(
         JSON.parse(storage!).find(
-          (item: { _name: string }) => item._name === names[0]
+          (item: { name: string }) => item.name === names[0]
         )
       ).toBeFalsy();
     });

@@ -7,8 +7,8 @@
 
   .content {
     display: grid;
-    grid-template: '. . .';
-    grid-template-columns: 3fr 1fr 1fr;
+    grid-template: '. .';
+    grid-template-columns: 3fr 1fr;
     column-gap: variables.$simple-margin;
     padding: variables.$simple-margin;
     border-radius: variables.$ui-border;

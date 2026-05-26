@@ -7,11 +7,13 @@ import { useGroceries } from '../../appProvider';
 import styles from './addGrocery.module.scss';
 
 export interface IAddGroceryProps {
-  onComplete: () => void;
+  onUpdate: (match: string) => void;
+  filterCount: number;
 }
 
 export const AddGrocery: React.FC<IAddGroceryProps> = ({
-  onComplete,
+  onUpdate,
+  filterCount,
   ...rest
 }) => {
   const textRef = React.useRef<HTMLInputElement>(null);
@@ -27,11 +29,13 @@ export const AddGrocery: React.FC<IAddGroceryProps> = ({
           ? parseInt(priceRef.current?.value, 10)
           : undefined
       );
-      onComplete();
+      textRef.current.value = '';
+      onUpdate('');
     } else {
       setError(true);
     }
   };
+  console.log(textRef.current?.value);
 
   return (
     <div className={styles.wrapper}>
@@ -40,25 +44,21 @@ export const AddGrocery: React.FC<IAddGroceryProps> = ({
           ref={textRef}
           data-testid="grocery-input"
           className={styles.input}
-          onChange={() => setError(false)}
+          onChange={() => {
+            onUpdate(textRef.current!.value);
+            setError(false);
+          }}
           placeholder="Item name"
-        />
-        <input
-          type="number"
-          ref={priceRef}
-          data-testid="grocery-price"
-          className={styles.price}
-          onChange={() => setError(false)}
-          placeholder="Price"
         />
         <Button
           data-testid="grocery-complete"
+          disabled={!textRef.current?.value || textRef.current?.value === ''}
           className={styles.button}
           onClick={() => {
             doAddGrocery();
           }}
         >
-          Done
+          Add
         </Button>
       </div>
       {error && (
